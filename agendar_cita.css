@@ -1,0 +1,36 @@
+html{
+    
+    background-color: whitesmoke;
+}
+.menu{
+ border-color: black;
+ margin: 100px;
+ margin-bottom: 0;
+ padding-top: 100px;
+ padding-bottom: 50px;
+ padding-left: 320px;
+ padding-right: 320px;
+ text-align: center;
+ background-color: white;
+}
+footer{
+    background-color:#014b01;
+    color:rgb(255, 255, 255);
+    font-size: 30px;
+    text-align: right;
+    margin-left: 100px;
+    margin-right: 100px;
+    padding: 20px;
+}
+
+.registro{
+    border-color: black;
+    margin: 100px;
+    margin-bottom: 0;
+    padding-top: 30px;
+    padding-bottom: 50px;
+    padding-left: 320px;
+    padding-right: 320px;
+    background-color: white; 
+   
+}

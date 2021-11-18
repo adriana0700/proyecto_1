@@ -16,53 +16,120 @@
 
 </head>
 <body>
-  <!-- este div hace visible el calendario -->
-    <div class="container">
-        <div class="row">
-            <div class="col"></div>
-            <div class="col-7"> <div id="CalendarioWeb"></div></div>
-            <div class="col"></div>
-        </div>
-    </div>
-    <script>
-      // funcion para alinear el encabezado del calendario
-        $(document).ready(function(){
-            $('#CalendarioWeb').fullCalendar({
-                header:{
-                    left:'today, prev, next',
-                    center:'title',
-                    right:''
-                },//funcion para agregar color al dar click en un dia
-                dayClick:function(date,jsEvent,view){
-                    $(this).css('background-color', '#58e958');
-                    $("#exampleModal").modal();
-                }
-            });
-        });
-    </script>
-    <!-- este div muestra la ventana emergente,se importa codigo de bootstrap -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Agendar asesoria</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              ...
-            </div>
-            <!-- se crean los botones -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" >Agendar</button>
-                <button type="button" class="btn btn-success">Modificar</button>
-                <button type="button" class="btn btn-danger">Borrar</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                
-            </div>
-          </div>
-        </div>
-      </div>
+<!-- este div hace visible el calendario -->
+<div class="container">
+<div class="row">
+	<div class="col"></div>
+	<div class="col-7"><br> <br><div id="CalendarioWeb"></div></div>
+	<div class="col"></div>
+</div>
+</div>
+
+
+<!----------
+Inicio mostrar un modal con un formulario que nos permita obtener los datos del evento escrito por el usuario
+agregar modificar , eliminar
+----------->	
+
+<div id="calendar"> </div>			
+<div class="modal"  id="ModalEventos" tabindex="-1" role="dialog">
+<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<div class="modal-header">
+		<h5 class="modal-title" id="tituloEvento">Agendar Asesoria</h5>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<div class="modal-body">
+		<div id="descripcionEvento"></div>		  
+		Fecha: <input type="text" id="txtFecha"><br>
+		Usuario: <input type="text" id="txtTitulo"><br>
+		Hora: <input type="time" id="txtHora"><br>
+    	Duración: <input type="text" value="30:00mn"><br>
+		Asignatura: <input list="asignatura" id="txtAsiganturas" required >
+          <datalist id="asignatura">
+            <option value="1"></option>
+            <option value="2"></option>
+            <option value="3"></option>
+          </datalist><br>	
+		Docente: <input list="docentes" id="txtDocente" required >
+          <datalist id="docentes">
+            <option value="1"></option>
+            <option value="2"></option>
+            <option value="3"></option>
+          </datalist>
+          <br>	  	
+		<input type="color" id="txtColor" value="#014b01" ><br>	
+	</div>
+
+	<!--Este es el pie del modal aqui puedes agregar mas botones-->
+	<div class="modal-footer">
+		<button type="button" class="btn btn-secondary" id="btnAgregar">Agendar</button>
+		<button type="button" class="btn btn-secondary">Modificar</button>
+		<button type="button" id="btnEliminar" class="btn btn-secondary">Borrar</button>
+		<button type="button" class="btn btn-primary">Cancelar</button>
+	</div>
+	</div>
+</div>
+</div>
+<!----------
+Fin mostrar un modal con un formulario que nos permita obtener los datos del evento escrito por el usuario
+----------->				
+
+<script>
+	$(document).ready(function() {		
+	$('#calendar').fullCalendar({           			
+		header: {				
+			left: 'prev,next today',
+			center: 'title',
+			right: 'month,basicWeek,basicDay',			 
+		},
+		
+		//-----Inicio Evento Click
+		dayClick: function(date, jsEvent, view) {
+     
+			$("#txtFecha").val(date.format());
+			$("#ModalEventos").modal();
+		},
+		//-----Fin Evento Click
+    eventsClick:function(calEvent,jsEvent, view){
+      $('#tituloEvento').html(calEvent.title);
+
+      $('#txtDescripcion').val(calEvent.descripcion);
+      $('#txtTitulo').val(calEvent.title);
+      $('#txtColor').val(calEvent.color);
+
+      FechaHora: calEvent.start._i.split(" ");
+      $('#txtFecha').val(FechaHora[0]);
+      $('#txtHora').val(FechaHora[1]);
+
+			$("#ModalEventos").modal();
+    }	 							 
+		
+		});		
+		
+		//-----Inicio Boton Agregar
+		$('#btnAgregar').click(function() {
+			var NuevoEvento={
+			title:$('#txtTitulo').val(),
+			start:$('#txtFecha').val()+" "+$('#txtHora').val(),
+			color:$('#txtColor').val(),
+			descripcion:$('#txtDescripcion').val(),
+			textColor:"#FFFFFF",
+			end:$('#txtFecha').val()+" "+$('#txtHora').val(),
+
+			};
+			//agregamos el nuevo evento con renderEvent
+		$('#calendar').fullCalendar('renderEvent',NuevoEvento);     
+			//Cerramos el formulario modal con toggle abierto con la fucion dayClick  
+		$('#ModalEventos').modal('toggle');
+		});	
+		//-----Fin Boton Agregar	
+    
+		
+	});
+  
+</script>
 </body>
 </html>

@@ -14,41 +14,38 @@
         <fieldset>
             <legend><strong>Ingrese su información</strong></legend>
             <label for="id">Id del estudiante</label>
-            <input type="text" required>
+            <input type="text"  id="id" required  onchange="checkId(this.value)">
             <br>
             <br>
             <label for="nombre">Nombre</label>
-            <input type="text" required>
+            <input type="text"  id="nombre" required onchange="checkNombre(this.value)">
             <br>
             <br>
             <label for="apelldio">Apellido</label>
-            <input type="text " required>
+            <input type="text " id="apellido"  required onchange="checkApellido(this.value)">
             <br>
             <br>
             <label for="email">Email</label>
-            <input type="text" required>
+            <input type="text"  id="apellido" required onchange="checkCorreo(this.value)">
             <br>
             <br>
             <label for="telefono">Telefono</label>
-            <input type="text" required>
+            <input type="text"  id="telefono" required onchange="checkTelefono(this.value)">
             <br>
             <br>
             <label for="semestre">Semestre</label>
-            <input type="text" required>
+            <input type="text"  id="semestre" required onchange="checkSemestre(this.value)">
             <br>
             <br>
-            <label for="fecha">Fecha</label>
-           <input type="date" id="fecha">
-           <br>
-           <br>
-           <label for="hora">Hora</label>
-           <input type="time" id="hora">
-           <br>
-           <br>
-
-            <input type="button" value="Siguiente" id="boton" src="">
+            <div>
+                <a href="calendar.html" id="btn-submit-form">
+                   <input type="button" value="Registrarse">
+                </a>
+            </div>
         </fieldset>
     </form>
+    <script src="validacion.js"></script>
 </body>
 <footer><strong>Creemos en el futuro, creemos en ti.</strong></footer>
+
 </html>
